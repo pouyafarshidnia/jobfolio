@@ -31,12 +31,18 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Generate Application Key
+        run: php artisan key:generate
+        
+
       - name: Setup Application
         run: composer setup
 
       - name: Run CI Checks
         run: composer ci:check
-        
+      
       - name: Run tests
         run: composer test
+
+     
         
