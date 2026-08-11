@@ -92,7 +92,7 @@ function erase() {
                         >
                             <SelectValue placeholder="Choose country" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent searchable>
                             <SelectItem
                                 v-for="country in countries"
                                 :key="country.id"

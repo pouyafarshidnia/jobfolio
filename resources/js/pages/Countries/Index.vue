@@ -104,7 +104,7 @@ const flashMessage = computed(() => {
                             >
                                 <SelectValue placeholder="Select Country" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent searchable>
                                 <SelectItem
                                     v-for="flag in flags"
                                     :key="flag.value"
