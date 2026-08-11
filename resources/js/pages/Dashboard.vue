@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3';
 import { Clock, XCircle, Loader2, CalendarPlus } from '@lucide/vue';
+import type { AcceptableValue } from 'reka-ui';
 import { computed } from 'vue';
 import {
     Select,
@@ -22,9 +23,14 @@ defineOptions({
     },
 });
 
+interface MonthData {
+    month: number;
+    total: number;
+}
+
 const props = defineProps({
-    stats: Object,
-    month: Array,
+    stats: Object as () => Record<string, number> | undefined,
+    month: Array as () => MonthData[],
     year: String,
 });
 
@@ -50,7 +56,9 @@ const chartSeries = computed(() => [
     {
         name: 'Applications',
         data: monthNames.map((_, i) => {
-            const found = props.month?.find((m) => m.month === i + 1);
+            const found = props.month?.find(
+                (m: MonthData) => m.month === i + 1,
+            );
 
             return found ? found.total : 0;
         }),
@@ -104,8 +112,8 @@ const chartOptions = {
     },
 };
 
-function onYearChange(value: string) {
-    router.visit(dashboard.url({ query: { year: value } }), {
+function onYearChange(value: AcceptableValue) {
+    router.visit(dashboard.url({ query: { year: String(value) } }), {
         preserveState: true,
         preserveScroll: true,
     });
@@ -181,7 +189,7 @@ const cards = [
                         <p
                             class="mt-1 text-3xl font-bold text-gray-900 dark:text-gray-100"
                         >
-                            {{ stats[card.key] }}
+                            {{ stats?.[card.key] }}
                         </p>
                         <p
                             class="mt-1 text-xs text-gray-400 dark:text-gray-500"

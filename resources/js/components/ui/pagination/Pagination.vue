@@ -12,7 +12,7 @@ const props = defineProps({
 });
 
 const numbers = computed(() => {
-  const list = props.list.links ?? [];
+  const list = props.list?.links ?? [];
 
   return list.filter(
     (link: { label: string }) =>
@@ -30,9 +30,9 @@ function goToPage(url: string | null) {
 </script>
 
 <template>
-  <div v-if="list.last_page > 1" class="mt-4 flex items-center justify-between">
+  <div v-if="list?.last_page && list.last_page > 1" class="mt-4 flex items-center justify-between">
     <p class="text-sm text-gray-500 dark:text-gray-400">
-      Showing {{ list.from }} to {{ list.to }} of {{ list.total }} entries
+      Showing {{ list?.from }} to {{ list?.to }} of {{ list?.total }} entries
     </p>
 
     <div class="flex items-center gap-1">

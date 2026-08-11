@@ -16,7 +16,10 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) });
         app.use(plugin);
         app.use(VueApexCharts);
-        app.mount(el);
+
+        if (el) {
+            app.mount(el);
+        }
     },
     layout: (name) => {
         switch (true) {

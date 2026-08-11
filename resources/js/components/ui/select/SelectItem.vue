@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { SelectItemProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
+import type { HTMLAttributes, Ref } from "vue"
 import { Check } from "@lucide/vue"
+import { computed, inject, onMounted, ref } from "vue"
 import { reactiveOmit } from "@vueuse/core"
 import {
   SelectItem,
@@ -16,10 +17,26 @@ const props = defineProps<SelectItemProps & { class?: HTMLAttributes["class"] }>
 const delegatedProps = reactiveOmit(props, "class")
 
 const forwardedProps = useForwardProps(delegatedProps)
+
+const selectSearch = inject<Ref<string> | null>("selectSearch", null)
+const textRef = ref<HTMLElement | null>(null)
+const itemText = ref("")
+
+const isVisible = computed(() => {
+  if (!selectSearch?.value) return true
+  return itemText.value.toLowerCase().includes(selectSearch.value.toLowerCase())
+})
+
+onMounted(() => {
+  if (textRef.value) {
+    itemText.value = textRef.value.textContent?.trim() ?? ""
+  }
+})
 </script>
 
 <template>
   <SelectItem
+    v-show="isVisible"
     data-slot="select-item"
     v-bind="forwardedProps"
     :class="
@@ -38,7 +55,7 @@ const forwardedProps = useForwardProps(delegatedProps)
     </span>
 
     <SelectItemText>
-      <slot />
+      <span ref="textRef"><slot /></span>
     </SelectItemText>
   </SelectItem>
 </template>

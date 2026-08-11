@@ -52,9 +52,9 @@ const reload = function () {
 function resetFilters() {
     Object.keys(filters).forEach((key) => {
         if (key === 'per_page') {
-            filters[key] = 10;
+            filters[key as keyof typeof filters] = '10';
         } else {
-            filters[key] = '';
+            filters[key as keyof typeof filters] = '';
         }
     });
 
@@ -105,7 +105,7 @@ watch(filters, reload, { deep: true });
             >
                 <SelectValue placeholder="Select Country" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent searchable>
                 <SelectItem
                     v-for="country in countries"
                     :key="country.id"
