@@ -9,8 +9,7 @@ use App\Enums\ApplicationStatus;
 use App\Enums\ApplicationType;
 use App\Exceptions\InvalidArgumentException;
 use Database\Factories\ApplicationFactory;
-use Illuminate\Database\Eloquent\Attributes\Scope;
-use Illuminate\Database\Eloquent\Builder;
+use EleFilter\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,7 +31,7 @@ use Illuminate\Support\Str;
 final class Application extends Model
 {
     /** @use HasFactory<ApplicationFactory> */
-    use HasFactory;
+    use HasFactory, Filterable;
 
     protected $perPage = 10;
 
@@ -91,76 +90,6 @@ final class Application extends Model
         $this->save();
     }
 
-    /**
-     * Scope a query to search .
-     *
-     * @param  Builder<Application>  $query
-     */
-    #[Scope]
-    protected function search(Builder $query, ?string $search): void
-    {
-        if ($search === null || $search === '') {
-            return;
-        }
-
-        $query->where('company', 'like', sprintf('%%%s%%', $search));
-    }
-
-    /**
-     * Scope a query to status .
-     *
-     * @param  Builder<Application>  $query
-     */
-    #[Scope]
-    protected function status(Builder $query, mixed $status): void
-    {
-
-        $statusValue = match ($status) {
-            'pending' => ApplicationStatus::Pending,
-            'processing' => ApplicationStatus::Processing,
-            'rejected' => ApplicationStatus::Rejected,
-            'approved' => ApplicationStatus::Approved,
-            default => null,
-        };
-
-        if ($statusValue === null) {
-            return;
-        }
-
-        $query->where('status', $statusValue);
-    }
-
-    /**
-     * Scope a query to date .
-     *
-     * @param  Builder<Application>  $query
-     */
-    #[Scope]
-    protected function date(Builder $query, mixed $date): void
-    {
-        if ($date === null || $date === '') {
-            return;
-        }
-
-        $start = $date.' 00:00:00';
-        $end = $date.' 23:59:59';
-        $query->whereBetween('submitted_at', [$start, $end]);
-    }
-
-    /**
-     * Scope a query to country .
-     *
-     * @param  Builder<Application>  $query
-     */
-    #[Scope]
-    protected function countryId(Builder $query, mixed $countryId): void
-    {
-        if ($countryId === null || $countryId === '') {
-            return;
-        }
-
-        $query->where('country_id', $countryId);
-    }
 
     /**
      * Attributes
@@ -190,7 +119,7 @@ final class Application extends Model
     protected function getSalaryDisplayAttribute(): string
     {
         if ($this->attributes['salary'] !== null) {
-            return $this->attributes['currency'].number_format((int) $this->attributes['salary']).' '.$this->salary_type->label();
+            return $this->attributes['currency'] . number_format((int) $this->attributes['salary']) . ' ' . $this->salary_type->label();
         }
 
         return 'N/A';

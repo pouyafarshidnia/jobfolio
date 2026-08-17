@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc09c56bbc95ac0e9215279c6e512d8c",
+    "content-hash": "cc2aa4da74733b87e10b8d67114c12eb",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -659,6 +659,82 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "elefilter/elefilter",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pouyafarshidnia/elefilter.git",
+                "reference": "0adf3b76b963e8e3fd0d6d7ea9402a0d3ae4ae69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pouyafarshidnia/elefilter/zipball/0adf3b76b963e8e3fd0d6d7ea9402a0d3ae4ae69",
+                "reference": "0adf3b76b963e8e3fd0d6d7ea9402a0d3ae4ae69",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^10.0|^11.0|^12.0|^13.0",
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.2|^8.3|^8.4|^8.5"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.6",
+                "laravel/pint": "^1.22.1",
+                "orchestra/testbench": "^10.4",
+                "peckphp/peck": "^0.1.3",
+                "pestphp/pest": "^3.7",
+                "pestphp/pest-plugin-type-coverage": "^3.7",
+                "phpstan/phpstan": "^2.1.16",
+                "rector/rector": "^2.0.16",
+                "symfony/var-dumper": "^7.2.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "EleFilter\\EleFilterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "EleFilter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pouya Farshidnia",
+                    "email": "pouyafarshidnia@gmail.com"
+                }
+            ],
+            "description": "A filter package for laravel elequent models",
+            "keywords": [
+                "clean-filter",
+                "easy-filter",
+                "elequent",
+                "elequent-filter",
+                "filter",
+                "laravel",
+                "laravel-filter",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/pouyafarshidnia/elefilter/issues",
+                "source": "https://github.com/pouyafarshidnia/elefilter/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Rottmayer89",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-08-17T08:21:01+00:00"
         },
         {
             "name": "fruitcake/php-cors",

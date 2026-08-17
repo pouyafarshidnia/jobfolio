@@ -19,7 +19,7 @@ const filters = reactive({
     date: undefined,
     status: '',
     per_page: '',
-    countryId: '',
+    country: '',
 });
 
 const statuses = [
@@ -100,7 +100,7 @@ watch(filters, reload, { deep: true });
         </Select>
 
         <!-- Countries -->
-        <Select v-model="filters.countryId">
+        <Select v-model="filters.country">
             <SelectTrigger
                 class="w-52 rounded-lg border border-gray-300 px-4 py-2"
             >
