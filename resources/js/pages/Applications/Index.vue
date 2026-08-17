@@ -3,6 +3,8 @@
  * Imports
  */
 import { Head, Link as ActionLink } from '@inertiajs/vue3';
+import { parseDate } from '@internationalized/date';
+import type { CalendarDate } from '@internationalized/date';
 import {
     Pencil,
     Link,
@@ -62,17 +64,30 @@ defineProps({
 });
 
 /*
- * Constants
+ * Consts
  */
 const showModal = ref(false);
 
 const linkIcons: Record<string, typeof Link> = {
-    Link: Link,
-    Mail: Mail,
-    ExternalLink: ExternalLink,
+    Link,
+    Mail,
+    ExternalLink,
 };
 
-const modalData = reactive({
+const modalData = reactive<{
+    bind: ReturnType<typeof store.form>;
+    countryId: string;
+    company: string;
+    position: string;
+    salary: string;
+    salaryType: string;
+    type: string;
+    currency: string;
+    submittedAt: CalendarDate | undefined;
+    link: string;
+    erasable: boolean;
+    button: string;
+}>({
     bind: store.form(),
     countryId: '',
     company: '',
@@ -81,14 +96,14 @@ const modalData = reactive({
     salaryType: '',
     type: '',
     currency: '',
-    submittedAt: '',
+    submittedAt: undefined,
     link: '',
     erasable: true,
     button: 'Create Application',
 });
 
 /*
- * Methods
+ * Functions
  */
 function updateModalData(application: any) {
     modalData.bind = update.form(application);
@@ -99,7 +114,7 @@ function updateModalData(application: any) {
     modalData.salary = application.salary.value;
     modalData.currency = application.currency ?? '';
     modalData.salaryType = String(application.salaryType);
-    modalData.submittedAt = application.submittedAt.value;
+    modalData.submittedAt = parseDate(application.submittedAt.value);
     modalData.link = application.link.value;
     modalData.erasable = false;
     modalData.button = 'Update Application';

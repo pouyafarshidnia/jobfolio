@@ -2,7 +2,9 @@
 /* eslint-disable vue/no-mutating-props */
 import { Form } from '@inertiajs/vue3';
 import { Plus } from '@lucide/vue';
+import { DatePicker } from '@/components/ui/datepicker';
 import { Modal } from '@/components/ui/modal';
+
 import {
     Select,
     SelectContent,
@@ -39,7 +41,7 @@ function erase() {
     props.data.salary = '';
     props.data.currency = '';
     props.data.salaryType = '';
-    props.data.submittedAt = '';
+    props.data.submittedAt = undefined;
     props.data.link = '';
 }
 </script>
@@ -309,17 +311,16 @@ function erase() {
 
                 <!-- Submitted At -->
                 <div>
-                    <input
+                    <DatePicker
                         v-model="props.data.submittedAt"
-                        type="date"
+                        color="violet"
                         name="submitted_at"
-                        class="w-full rounded-lg border px-4 py-2 outline-0"
-                        :class="
-                            errors['submitted_at']
-                                ? 'border-rose-300 ring-rose-300'
-                                : 'border-gray-300 ring-gray-300'
-                        "
                     />
+                    <!-- <input v-model="props.data.submittedAt" type="date" name="submitted_at"
+                        class="w-full rounded-lg border px-4 py-2 outline-0" :class="errors['submitted_at']
+                            ? 'border-rose-300 ring-rose-300'
+                            : 'border-gray-300 ring-gray-300'
+                            " /> -->
                     <div
                         v-if="errors['submitted_at']"
                         class="mt-1 text-sm text-rose-500"

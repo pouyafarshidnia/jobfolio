@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { router } from '@inertiajs/vue3';
 import { computed, reactive, watch } from 'vue';
+import { DatePicker } from '@/components/ui/datepicker';
 import {
     Select,
     SelectContent,
@@ -15,7 +16,7 @@ defineProps({
 
 const filters = reactive({
     search: '',
-    date: '',
+    date: undefined,
     status: '',
     per_page: '',
     countryId: '',
@@ -52,9 +53,9 @@ const reload = function () {
 function resetFilters() {
     Object.keys(filters).forEach((key) => {
         if (key === 'per_page') {
-            filters[key as keyof typeof filters] = '10';
+            filters[key as keyof typeof filters] = '10' as never;
         } else {
-            filters[key as keyof typeof filters] = '';
+            filters[key as keyof typeof filters] = '' as never;
         }
     });
 
@@ -124,12 +125,9 @@ watch(filters, reload, { deep: true });
         </Select>
 
         <!-- Date -->
-        <input
-            v-model="filters.date"
-            type="date"
-            datepicker
-            class="rounded-lg border border-gray-300 px-4 py-2"
-        />
+        <div>
+            <DatePicker color="violet" v-model="filters.date" />
+        </div>
 
         <!-- Per Page -->
         <Select v-model="filters.per_page">

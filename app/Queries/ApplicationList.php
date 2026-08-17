@@ -20,12 +20,19 @@ final class ApplicationList
     {
         $perPage = $request->integer('per_page', 10);
 
+        $date = is_array($request->date) ? sprintf(
+            '%04d-%02d-%02d',
+            $request->date['year'],
+            $request->date['month'],
+            $request->date['day']
+        ) : null;
+
         return $user->applications()
             ->with('country')
             ->search($request->string('search')->value())
             ->status($request->string('status')->value())
             ->countryId($request->string('countryId')->value())
-            ->date($request->string('date')->value())
+            ->date($date)
             ->latest('submitted_at')
             ->paginate($perPage)->withQueryString();
     }
