@@ -31,7 +31,7 @@ use Illuminate\Support\Str;
 final class Application extends Model
 {
     /** @use HasFactory<ApplicationFactory> */
-    use HasFactory, Filterable;
+    use Filterable, HasFactory;
 
     protected $perPage = 10;
 
@@ -90,7 +90,6 @@ final class Application extends Model
         $this->save();
     }
 
-
     /**
      * Attributes
      */
@@ -119,7 +118,7 @@ final class Application extends Model
     protected function getSalaryDisplayAttribute(): string
     {
         if ($this->attributes['salary'] !== null) {
-            return $this->attributes['currency'] . number_format((int) $this->attributes['salary']) . ' ' . $this->salary_type->label();
+            return $this->attributes['currency'].number_format((int) $this->attributes['salary']).' '.$this->salary_type->label();
         }
 
         return 'N/A';

@@ -6,15 +6,15 @@ use EleFilter\Database\ModelFilter;
 
 class CountryFilter extends ModelFilter
 {
-   protected string $column = "country_id";
+    protected string $column = 'country_id';
 
-   public function apply(mixed $param): void
-   {
+    public function apply(mixed $param): void
+    {
 
-      if (null === $param ||  '' === $param) {
-         return;
-      }
+        if ($param === null || $param === '') {
+            return;
+        }
 
-      $this->equal($param);
-   }
+        $this->equal($param);
+    }
 }
